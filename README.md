@@ -1,3 +1,37 @@
+# Backend Engineering Challeng Submition
+
+Thank you for your time and opportunity.
+
+This implementation assumes the events are ordered by timestamp from oldest to most recent, the json is valid, and there exists a timestamp and a duration prop in the events
+
+At the start the first event timestamp is considered as the starting point up until the minutes, so a first event with "timestamp": "2018-12-26 18:01:01.000" would start the application at "2018-12-26 18:01:00.000"
+
+An event that happens on the minute mark will only be considered for the next minute window. As such a file with an event with 
+
+```json
+{
+	"timestamp": "2018-12-26 18:01:00.000",
+	"duration": 20,
+}
+```
+
+would produce this result:
+
+```
+{"date": "2018-12-26 18:01:00", "average_delivery_time": 0}
+{"date": "2018-12-26 18:02:00", "average_delivery_time": 20}
+```
+
+To run the application do 
+	unbabel_cli.py --input_file input.json --window_size 10
+
+The current input.json was using to test if the results were the expected and had ~0.007s execution times. Tests were made with bigger files having on average 5.7s execution time on files with 1000000 events.
+
+To check how long it takes to process the file uncomment lines 49 and 61-63 
+
+This implementation run time is impacted by the dimensions of the input. From my tests varying the window size has no impact in performance.
+
+
 # Backend Engineering Challenge
 
 
